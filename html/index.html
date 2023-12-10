@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>NETFLIX</title>
+  </head>
+  <body>
+    <div class="mainCont">
+      <div class="container">
+        <div class="katrori">
+          <form id="loginForm">
+            <h1 class="login">Log In</h1>
+            <input id="username" placeholder="Email or phone number" />
+            <input id="password" placeholder="Password" type="password" />
+            <button class="signn" type="submit">Sign In</button>
+          </form>
+          <p class="mainPara">
+            New to Netflix?
+            <a class="signup" href="signup.html">Sign up now.</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const inputUsername = document.getElementById("username").value;
+          const inputPassword = document.getElementById("password").value;
+
+          const storedData = localStorage.getItem("usersData");
+          const usersData = storedData ? JSON.parse(storedData) : {};
+
+          let isValidLogin = false;
+          for (let user in usersData) {
+            if (
+              (usersData[user].username === inputUsername ||
+                usersData[user].email === inputUsername) &&
+              usersData[user].password === inputPassword
+            ) {
+              isValidLogin = true;
+              break;
+            }
+          }
+
+          if (isValidLogin) {
+            alert("Login successful!");
+            window.location.href = "homePage.html"; // Redirect to homepage.html
+          } else {
+            alert("Invalid credentials!");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
